@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroLux - Luxury Executive Jet Charter & Admin Portal</title>
+    
+    <!-- PWA & Mobile Web App Meta Tags -->
+    <meta name="theme-color" content="#0B0F19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AeroLux Executive">
+    <link rel="manifest" id="pwa-manifest">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            500: '#D4AF37',
+                            600: '#C5A059',
+                            700: '#AA8C2C',
+                        },
+                        darkslate: {
+                            800: '#111827',
+                            900: '#0B0F19',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-darkslate-900 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <header class="bg-darkslate-800/90 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-plane-departure text-gold-500 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wider text-white">AEROLUX <span class="text-gold-500 font-light text-sm uppercase">Private Aviation</span></span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#fleet" class="text-gray-300 hover:text-gold-500 transition">Fleet</a>
+                <a href="#calculator" class="text-gray-300 hover:text-gold-500 transition">Instant Quote</a>
+                <a href="#request-form" class="text-gray-300 hover:text-gold-500 transition">Custom Request</a>
+                <a href="https://wa.me/918667899986" target="_blank" class="text-emerald-400 hover:text-emerald-300 flex items-center space-x-1">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>+91 8667899986</span>
+                </a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="installApp()" id="install-btn" class="hidden items-center space-x-2 px-3 py-1.5 bg-gold-500/10 border border-gold-500/30 text-gold-500 rounded-xl text-xs font-semibold hover:bg-gold-500 hover:text-darkslate-900 transition">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Install App</span>
+                </button>
+                <button onclick="openAdminModal()" class="px-4 py-2 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-semibold rounded-xl text-sm transition shadow-lg shadow-gold-500/25 flex items-center space-x-2">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Admin Portal (admin)</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-darkslate-800 to-darkslate-900 py-20 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gold-500/10 border border-gold-500/25 text-gold-500 inline-block mb-6">
+                <i class="fa-solid fa-crown mr-1"></i> Global Executive Jet Charter &amp; Concierge
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Uncompromising Luxury <br>In The <span class="text-gold-500">Global Skies</span>
+            </h1>
+            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+                Experience seamless private jet charter booking with worldwide airport search, secure payment processing, and 24/7 dedicated flight dispatch.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#calculator" class="px-8 py-4 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold rounded-xl transition shadow-xl shadow-gold-500/20">
+                    Calculate &amp; Book Flight
+                </a>
+                <a href="https://wa.me/918667899986" target="_blank" class="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>WhatsApp Concierge</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        
+        <!-- Fleet Showcase Section -->
+        <section id="fleet">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-white mb-2">Our Executive Fleet</h2>
+                <p class="text-gray-400">Inspect real exterior and luxury interior layouts for our world-class aircraft.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Fleet Card 1 -->
+                <div class="bg-darkslate-800 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+                    <div class="relative h-56 bg-gray-900">
+                        <img id="fleet-img-1" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80" alt="Gulfstream G650" class="w-full h-full object-cover transition duration-500">
+                        <div class="absolute top-3 left-3 flex space-x-1">
+                            <button onclick="switchFleetView(1, 'exterior')" id="btn-ext-1" class="px-2.5 py-1 bg-darkslate-900/85 backdrop-blur-md text-gold-500 border border-gold-500 text-xs font-semibold rounded-lg">Exterior</button>
+                            <button onclick="switchFleetView(1, 'interior')" id="btn-int-1" class="px-2.5 py-1 bg-darkslate-900/50 backdrop-blur-md text-gray-300 text-xs font-semibold rounded-lg hover:text-white">Interior Suite</button>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-white">Gulfstream G650</h3>
+                                <span class="text-xs px-2 py-1 bg-gold-500/10 text-gold-500 border border-gold-500/20 rounded-lg">Ultra-Long Range</span>
+                            </div>
+                            <p class="text-gray-400 text-xs mb-4">Capacity: 14 Passengers • Range: 7,500 nm • Cruise: Mach 0.925</p>
+                        </div>
+                        <a href="#calculator" class="w-full py-2.5 bg-gray-700/50 hover:bg-gold-500 hover:text-darkslate-900 text-gold-500 border border-gold-500/30 font-semibold rounded-xl text-sm text-center transition">
+                            Book This Aircraft
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fleet Card 2 -->
+                <div class="bg-darkslate-800 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+                    <div class="relative h-56 bg-gray-900">
+                        <img id="fleet-img-2" src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80" alt="Bombardier Global 7500" class="w-full h-full object-cover transition duration-500">
+                        <div class="absolute top-3 left-3 flex space-x-1">
+                            <button onclick="switchFleetView(2, 'exterior')" id="btn-ext-2" class="px-2.5 py-1 bg-darkslate-900/85 backdrop-blur-md text-gold-500 border border-gold-500 text-xs font-semibold rounded-lg">Exterior</button>
+                            <button onclick="switchFleetView(2, 'interior')" id="btn-int-2" class="px-2.5 py-1 bg-darkslate-900/50 backdrop-blur-md text-gray-300 text-xs font-semibold rounded-lg hover:text-white">Interior Suite</button>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-white">Bombardier Global 7500</h3>
+                                <span class="text-xs px-2 py-1 bg-gold-500/10 text-gold-500 border border-gold-500/20 rounded-lg">Heavy Jet</span>
+                            </div>
+                            <p class="text-gray-400 text-xs mb-4">Capacity: 19 Passengers • Range: 7,700 nm • Dedicated Master Suite</p>
+                        </div>
+                        <a href="#calculator" class="w-full py-2.5 bg-gray-700/50 hover:bg-gold-500 hover:text-darkslate-900 text-gold-500 border border-gold-500/30 font-semibold rounded-xl text-sm text-center transition">
+                            Book This Aircraft
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fleet Card 3 -->
+                <div class="bg-darkslate-800 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+                    <div class="relative h-56 bg-gray-900">
+                        <img id="fleet-img-3" src="https://images.unsplash.com/photo-1519074069444-1ba4ea16d66c?auto=format&fit=crop&w=800&q=80" alt="Phenom 300E" class="w-full h-full object-cover transition duration-500">
+                        <div class="absolute top-3 left-3 flex space-x-1">
+                            <button onclick="switchFleetView(3, 'exterior')" id="btn-ext-3" class="px-2.5 py-1 bg-darkslate-900/85 backdrop-blur-md text-gold-500 border border-gold-500 text-xs font-semibold rounded-lg">Exterior</button>
+                            <button onclick="switchFleetView(3, 'interior')" id="btn-int-3" class="px-2.5 py-1 bg-darkslate-900/50 backdrop-blur-md text-gray-300 text-xs font-semibold rounded-lg hover:text-white">Interior Suite</button>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-white">Embraer Phenom 300E</h3>
+                                <span class="text-xs px-2 py-1 bg-gold-500/10 text-gold-500 border border-gold-500/20 rounded-lg">Light Jet</span>
+                            </div>
+                            <p class="text-gray-400 text-xs mb-4">Capacity: 7 Passengers • Range: 2,010 nm • Best-in-class Speed</p>
+                        </div>
+                        <a href="#calculator" class="w-full py-2.5 bg-gray-700/50 hover:bg-gold-500 hover:text-darkslate-900 text-gold-500 border border-gold-500/30 font-semibold rounded-xl text-sm text-center transition">
+                            Book This Aircraft
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instant Quote & Payment Calculator -->
+        <section id="calculator" class="bg-darkslate-800 border border-gray-800 rounded-3xl p-8 shadow-2xl">
+            <div class="max-w-2xl mx-auto text-center mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">Instant Flight Quote &amp; Secure Checkout</h2>
+                <p class="text-gray-400 text-sm">Search any worldwide airport by code or city name, pick departure date &amp; time, and calculate exact pricing.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <!-- Departure Airport Search -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Departure Airport</label>
+                    <input type="text" id="calc-from-search" placeholder="Type city or airport..." oninput="filterAirports('calc-from')" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <input type="hidden" id="calc-from" value="JFK">
+                    <div id="calc-from-dropdown" class="absolute left-0 right-0 top-20 bg-darkslate-800 border border-gray-700 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-30 hidden divide-y divide-gray-700/50"></div>
+                </div>
+
+                <!-- Destination Airport Search -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Destination Airport</label>
+                    <input type="text" id="calc-to-search" placeholder="Type city or airport..." oninput="filterAirports('calc-to')" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <input type="hidden" id="calc-to" value="DXB">
+                    <div id="calc-to-dropdown" class="absolute left-0 right-0 top-20 bg-darkslate-800 border border-gray-700 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-30 hidden divide-y divide-gray-700/50"></div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Flight Date &amp; Time</label>
+                    <input type="datetime-local" id="calc-datetime" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Aircraft Category</label>
+                    <select id="calc-aircraft" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                        <option value="Light Jet ($22,000)">Light Jet ($22,000)</option>
+                        <option value="Midsize Jet ($45,000)">Midsize Jet ($45,000)</option>
+                        <option value="Heavy Jet ($95,000)" selected>Heavy Jet ($95,000)</option>
+                        <option value="Ultra-Long Range ($135,000)">Ultra-Long Range ($135,000)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-darkslate-900 border border-gray-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-xs text-gray-400 block mb-1">Estimated Charter Cost</span>
+                    <div id="calc-price-display" class="text-3xl font-extrabold text-gold-500">$95,000 USD</div>
+                    <span class="text-xs text-gray-500">Includes fuel, crew, catering &amp; landing fees.</span>
+                </div>
+                <button onclick="openCheckoutModal()" class="w-full md:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold rounded-xl transition shadow-lg">
+                    Proceed to Secure Payment
+                </button>
+            </div>
+        </section>
+
+        <!-- Custom Quote Request Form -->
+        <section id="request-form" class="bg-darkslate-800 border border-gray-800 rounded-3xl p-8 shadow-2xl">
+            <div class="max-w-2xl mx-auto text-center mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">Request Custom Flight Quote</h2>
+                <p class="text-gray-400 text-sm">Submit your worldwide flight schedule with contact email and WhatsApp number directly to dispatch.</p>
+            </div>
+
+            <form onsubmit="submitCustomRequest(event)" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Full Name</label>
+                    <input type="text" id="req-name" required placeholder="Lord Alistair Sterling" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Customer Email ID</label>
+                    <input type="email" id="req-email" required placeholder="alistair@sterling.com" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">WhatsApp Phone Number</label>
+                    <input type="tel" id="req-phone" required placeholder="+91 8667899986" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                </div>
+                
+                <!-- Request From Airport Search -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">From Airport Code / City</label>
+                    <input type="text" id="req-from-search" placeholder="Type city or code..." oninput="filterAirports('req-from')" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <input type="hidden" id="req-from" value="LHR">
+                    <div id="req-from-dropdown" class="absolute left-0 right-0 top-20 bg-darkslate-800 border border-gray-700 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-30 hidden divide-y divide-gray-700/50"></div>
+                </div>
+
+                <!-- Request To Airport Search -->
+                <div class="relative">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">To Airport Code / City</label>
+                    <input type="text" id="req-to-search" placeholder="Type city or code..." oninput="filterAirports('req-to')" class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <input type="hidden" id="req-to" value="DXB">
+                    <div id="req-to-dropdown" class="absolute left-0 right-0 top-20 bg-darkslate-800 border border-gray-700 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-30 hidden divide-y divide-gray-700/50"></div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Departure Date &amp; Time</label>
+                    <input type="datetime-local" id="req-datetime" required class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-gold-500">
+                </div>
+                <div class="md:col-span-3">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Special Concierge Requirements (Catering, Ground Transfer)</label>
+                    <textarea id="req-notes" rows="2" placeholder="Specify gourmet catering, VIP tarmac transfer, or security detail..." class="w-full bg-darkslate-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500"></textarea>
+                </div>
+                <div class="md:col-span-3 text-center">
+                    <button type="submit" class="px-8 py-4 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold rounded-xl transition">
+                        Submit Request to Dispatch
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darkslate-800 border-t border-gray-800 mt-20 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500">
+            &copy; 2026 AeroLux Executive Jet Charter &amp; Concierge. All rights reserved. Direct WhatsApp Support: <a href="https://wa.me/918667899986" class="text-gold-500 font-medium">+91 8667899986</a>.
+        </div>
+    </footer>
+
+    <!-- Secure Checkout & Payment Modal -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-darkslate-800 border border-gray-700 w-full max-w-lg rounded-3xl p-6 shadow-2xl relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-2xl font-bold text-white mb-1">Select Payment Gateway</h3>
+            <p class="text-xs text-gray-400 mb-6">Complete your charter booking using PayPal or Cashfree UPI.</p>
+            
+            <div class="flex space-x-2 mb-6 border-b border-gray-700 pb-4">
+                <button onclick="switchTab('paypal')" id="tab-paypal" class="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gold-500 text-darkslate-900 transition">PayPal Merchant</button>
+                <button onclick="switchTab('cashfree')" id="tab-cashfree" class="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gray-700 text-gray-300 transition">Cashfree (UPI / India)</button>
+            </div>
+
+            <!-- PayPal View -->
+            <div id="content-paypal" class="space-y-4">
+                <div class="p-4 bg-darkslate-900 border border-gray-700 rounded-2xl text-sm">
+                    <p class="text-gray-400 text-xs mb-1">Merchant PayPal Account:</p>
+                    <p class="font-mono text-gold-500 font-bold">Span20122@gmail.com</p>
+                </div>
+                <a href="https://www.paypal.com/ncp/payment?hosted_button_id=Span20122" target="_blank" class="block w-full py-3.5 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold text-center rounded-xl transition">
+                    Pay Securely with PayPal
+                </a>
+            </div>
+
+            <!-- Cashfree View -->
+            <div id="content-cashfree" class="space-y-4 hidden">
+                <div class="p-4 bg-darkslate-900 border border-gray-700 rounded-2xl text-sm">
+                    <p class="text-gray-400 text-xs mb-1">Cashfree Secure Link / Handle:</p>
+                    <p class="font-mono text-emerald-400 font-bold">cfpe.me/pandiaraj</p>
+                </div>
+                <a href="https://cfpe.me/pandiaraj" target="_blank" class="block w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center rounded-xl transition">
+                    Pay via Cashfree UPI / Card
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIN Protected Admin Portal Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-darkslate-800 border border-gray-700 w-full max-w-5xl rounded-3xl p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <!-- PIN Screen -->
+            <div id="admin-pin-screen" class="py-12 text-center max-w-md mx-auto">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 bg-gold-500/10 text-gold-500 rounded-full text-xs font-mono font-bold mb-4">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span>Admin Handle: admin</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Merchant Control Panel</h3>
+                <p class="text-xs text-gray-400 mb-6">Enter your 4-digit security PIN to access booking administration (Default PIN: 7777).</p>
+                <input type="password" id="admin-pin-input" maxlength="4" placeholder="••••" class="w-36 text-center text-2xl tracking-widest bg-darkslate-900 border border-gray-700 text-white rounded-xl py-3 mb-4 focus:outline-none focus:border-gold-500">
+                <div>
+                    <button onclick="verifyAdminPin()" class="px-8 py-3 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold rounded-xl text-sm transition">Unlock Dashboard</button>
+                </div>
+            </div>
+
+            <!-- Admin Dashboard Content -->
+            <div id="admin-dashboard-screen" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-700 pb-4 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-500 font-bold">
+                            AD
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Administrator Management Center <span class="text-xs font-mono text-gold-500">(admin)</span></h3>
+                            <p class="text-xs text-gray-400">Review quotes, worldwide airport itineraries, passenger emails, and booking statuses.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="openChangePinModal()" class="px-3 py-1.5 bg-gold-500/10 text-gold-500 border border-gold-500/30 rounded-lg text-xs font-semibold hover:bg-gold-500 hover:text-darkslate-900 transition">Change PIN</button>
+                        <button onclick="lockAdmin()" class="px-3 py-1.5 bg-red-500/10 text-red-400 border border-red-500/30 rounded-lg text-xs font-semibold hover:bg-red-500 hover:text-white transition">Lock Portal</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-darkslate-900 border border-gray-700 p-4 rounded-2xl">
+                        <p class="text-xs text-gray-400">Total Bookings &amp; Quotes</p>
+                        <p id="admin-stat-count" class="text-2xl font-bold text-white mt-1">1</p>
+                    </div>
+                    <div class="bg-darkslate-900 border border-gray-700 p-4 rounded-2xl">
+                        <p class="text-xs text-gray-400">Active PayPal Merchant</p>
+                        <p class="text-sm font-mono text-gold-500 font-bold mt-1">Span20122@gmail.com</p>
+                    </div>
+                    <div class="bg-darkslate-900 border border-gray-700 p-4 rounded-2xl">
+                        <p class="text-xs text-gray-400">Cashfree UPI Handle</p>
+                        <p class="text-sm font-mono text-emerald-400 font-bold mt-1">cfpe.me/pandiaraj</p>
+                    </div>
+                </div>
+
+                <!-- Bookings / Requests Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse" id="admin-bookings-table">
+                        <thead>
+                            <tr class="border-b border-gray-700 text-xs font-semibold text-gray-400 uppercase bg-darkslate-900">
+                                <th class="p-3">Client &amp; Contact</th>
+                                <th class="p-3">Route (Airport Codes)</th>
+                                <th class="p-3">Flight Date &amp; Time</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800 text-sm">
+                            <tr class="hover:bg-gray-800/30">
+                                <td class="p-3">
+                                    <div class="font-bold text-white">Lord Alistair Sterling</div>
+                                    <div class="text-xs text-gold-400"><i class="fa-solid fa-envelope"></i> alistair@sterling.com</div>
+                                    <div class="text-xs text-emerald-400"><i class="fa-brands fa-whatsapp"></i> +91 8667899986</div>
+                                </td>
+                                <td class="p-3 font-mono text-gray-200">LHR → DXB</td>
+                                <td class="p-3 text-xs text-gray-300">2026-06-15 14:30</td>
+                                <td class="p-3"><span class="px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs">Pending Quote</span></td>
+                                <td class="p-3 text-right">
+                                    <button onclick="removeAdminRow(this)" class="px-2 py-1 bg-red-500/10 text-red-400 rounded-lg text-xs"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change PIN Modal -->
+    <div id="changePinModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-darkslate-800 border border-gray-700 w-full max-w-sm rounded-3xl p-6 shadow-2xl relative">
+            <button onclick="closeChangePinModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <h3 class="text-xl font-bold text-white mb-2">Change Admin PIN</h3>
+            <p class="text-xs text-gray-400 mb-4">Enter your new 4-digit security PIN for future logins.</p>
+            <input type="password" id="new-pin-input" maxlength="4" placeholder="New PIN (4 digits)" class="w-full text-center text-xl tracking-widest bg-darkslate-900 border border-gray-700 text-white rounded-xl py-3 mb-4 focus:outline-none focus:border-gold-500">
+            <button onclick="saveNewPin()" class="w-full py-3 bg-gold-500 hover:bg-gold-600 text-darkslate-900 font-bold rounded-xl text-sm transition">Update PIN</button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-darkslate-800 border border-gold-500 text-white px-5 py-3 rounded-xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-300 z-50 text-sm">
+        <span id="toast-text">Action completed successfully.</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const airports = [
+            { code: 'JFK', name: 'John F. Kennedy International Airport', city: 'New York', country: 'USA' },
+            { code: 'LAX', name: 'Los Angeles International Airport', city: 'Los Angeles', country: 'USA' },
+            { code: 'SFO', name: 'San Francisco International Airport', city: 'San Francisco', country: 'USA' },
+            { code: 'MIA', name: 'Miami International Airport', city: 'Miami', country: 'USA' },
+            { code: 'ORD', name: 'O\'Hare International Airport', city: 'Chicago', country: 'USA' },
+            { code: 'LHR', name: 'Heathrow Airport', city: 'London', country: 'UK' },
+            { code: 'LCY', name: 'London City Airport (Private Jet Hub)', city: 'London', country: 'UK' },
+            { code: 'CDG', name: 'Charles de Gaulle Airport', city: 'Paris', country: 'France' },
+            { code: 'NCE', name: 'Nice Côte d\'Azur Airport', city: 'Nice', country: 'France' },
+            { code: 'FRA', name: 'Frankfurt Airport', city: 'Frankfurt', country: 'Germany' },
+            { code: 'MUC', name: 'Munich Airport', city: 'Munich', country: 'Germany' },
+            { code: 'ZRH', name: 'Zurich Airport', city: 'Zurich', country: 'Switzerland' },
+            { code: 'GVA', name: 'Geneva Airport', city: 'Geneva', country: 'Switzerland' },
+            { code: 'DXB', name: 'Dubai International Airport', city: 'Dubai', country: 'UAE' },
+            { code: 'DWC', name: 'Al Maktoum International Airport', city: 'Dubai', country: 'UAE' },
+            { code: 'DOH', name: 'Hamad International Airport', city: 'Doha', country: 'Qatar' },
+            { code: 'BOM', name: 'Chhatrapati Shivaji Maharaj International Airport', city: 'Mumbai', country: 'India' },
+            { code: 'DEL', name: 'Indira Gandhi International Airport', city: 'New Delhi', country: 'India' },
+            { code: 'BLR', name: 'Kempegowda International Airport', city: 'Bengaluru', country: 'India' },
+            { code: 'MAA', name: 'Chennai International Airport', city: 'Chennai', country: 'India' },
+            { code: 'HYD', name: 'Rajiv Gandhi International Airport', city: 'Hyderabad', country: 'India' },
+            { code: 'SIN', name: 'Changi Airport', city: 'Singapore', country: 'Singapore' },
+            { code: 'HKG', name: 'Hong Kong International Airport', city: 'Hong Kong', country: 'Hong Kong' },
+            { code: 'HND', name: 'Haneda Airport', city: 'Tokyo', country: 'Japan' },
+            { code: 'NRT', name: 'Narita International Airport', city: 'Tokyo', country: 'Japan' },
+            { code: 'SYD', name: 'Sydney Kingsford Smith Airport', city: 'Sydney', country: 'Australia' },
+            { code: 'MEL', name: 'Melbourne Airport', city: 'Melbourne', country: 'Australia' }
+        ];
+
+        let deferredPrompt = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formatted = tomorrow.toISOString().slice(0,16);
+            if(document.getElementById('calc-datetime')) document.getElementById('calc-datetime').value = formatted;
+            if(document.getElementById('req-datetime')) document.getElementById('req-datetime').value = formatted;
+
+            document.getElementById('calc-from-search').value = 'LHR - London, UK';
+            document.getElementById('calc-to-search').value = 'DXB - Dubai, UAE';
+            document.getElementById('req-from-search').value = 'LHR - London, UK';
+            document.getElementById('req-to-search').value = 'DXB - Dubai, UAE';
+
+            const manifest = {
+                name: "AeroLux Executive Jet Charter",
+                short_name: "AeroLux",
+                start_url: window.location.href,
+                display: "standalone",
+                background_color: "#0B0F19",
+                theme_color: "#0B0F19",
+                icons: [{ src: "https://placehold.co/192x192/0B0F19/D4AF37?text=AX", sizes: "192x192", type: "image/png" }]
+            };
+            document.getElementById('pwa-manifest').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/json' }));
+
+            document.addEventListener('click', (e) => {
+                if(!e.target.closest('input[id$="-search"]')) {
+                    document.querySelectorAll('div[id$="-dropdown"]').forEach(el => el.classList.add('hidden'));
+                }
+            });
+        });
+
+        function filterAirports(fieldId) {
+            const inputVal = document.getElementById(`${fieldId}-search`).value.toLowerCase();
+            const dropdown = document.getElementById(`${fieldId}-dropdown`);
+            
+            const matches = airports.filter(a => 
+                a.code.toLowerCase().includes(inputVal) || 
+                a.city.toLowerCase().includes(inputVal) || 
+                a.name.toLowerCase().includes(inputVal) ||
+                a.country.toLowerCase().includes(inputVal)
+            );
+
+            if(matches.length === 0) {
+                dropdown.innerHTML = `<div class="p-3 text-xs text-gray-400">No worldwide airports found</div>`;
+            } else {
+                dropdown.innerHTML = matches.map(m => `
+                    <div onclick="selectAirport('${fieldId}', '${m.code}', '${m.city}', '${m.country}')" class="p-3 hover:bg-darkslate-900 cursor-pointer text-xs transition">
+                        <span class="font-bold text-gold-500 font-mono">${m.code}</span> - <span class="text-white">${m.city}, ${m.country}</span>
+                        <div class="text-gray-400 truncate">${m.name}</div>
+                    </div>
+                `).join('');
+            }
+            dropdown.classList.remove('hidden');
+        }
+
+        function selectAirport(fieldId, code, city, country) {
+            document.getElementById(`${fieldId}-search`).value = `${code} - ${city}, ${country}`;
+            document.getElementById(fieldId).value = code;
+            document.getElementById(`${fieldId}-dropdown`).classList.add('hidden');
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-btn').classList.remove('hidden');
+            document.getElementById('install-btn').classList.add('inline-flex');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    if (choice.outcome === 'accepted') showToast("AeroLux installed successfully!");
+                    deferredPrompt = null;
+                });
+            } else {
+                showToast("Use browser menu -> 'Add to Home Screen' to install.");
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = msg;
+            t.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-32', 'opacity-0'), 3000);
+        }
+
+        const fleetImages = {
+            1: { exterior: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", interior: "https://images.unsplash.com/photo-1583089892998-d352e85a7fb4?auto=format&fit=crop&w=800&q=80" },
+            2: { exterior: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", interior: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80" },
+            3: { exterior: "https://images.unsplash.com/photo-1519074069444-1ba4ea16d66c?auto=format&fit=crop&w=800&q=80", interior: "https://images.unsplash.com/photo-1520454974749-611b7246feaf?auto=format&fit=crop&w=800&q=80" }
+        };
+
+        function switchFleetView(id, type) {
+            document.getElementById(`fleet-img-${id}`).src = fleetImages[id][type];
+            const btnExt = document.getElementById(`btn-ext-${id}`);
+            const btnInt = document.getElementById(`btn-int-${id}`);
+            if (type === 'exterior') {
+                btnExt.className = "px-2.5 py-1 bg-darkslate-900/85 backdrop-blur-md text-gold-500 border border-gold-500 text-xs font-semibold rounded-lg";
+                btnInt.className = "px-2.5 py-1 bg-darkslate-900/50 backdrop-blur-md text-gray-300 text-xs font-semibold rounded-lg hover:text-white";
+            } else {
+                btnInt.className = "px-2.5 py-1 bg-darkslate-900/85 backdrop-blur-md text-gold-500 border border-gold-500 text-xs font-semibold rounded-lg";
+                btnExt.className = "px-2.5 py-1 bg-darkslate-900/50 backdrop-blur-md text-gray-300 text-xs font-semibold rounded-lg hover:text-white";
+            }
+        }
+
+        document.getElementById('calc-aircraft').addEventListener('change', (e) => {
+            const val = e.target.value;
+            let price = "$95,000 USD";
+            if(val.includes('Light Jet')) price = "$22,000 USD";
+            else if(val.includes('Midsize')) price = "$45,000 USD";
+            else if(val.includes('Heavy')) price = "$95,000 USD";
+            else if(val.includes('Ultra')) price = "$135,000 USD";
+            document.getElementById('calc-price-display').innerText = price;
+        });
+
+        function openCheckoutModal() {
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function switchTab(tab) {
+            if(tab === 'paypal') {
+                document.getElementById('tab-paypal').className = "flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gold-500 text-darkslate-900 transition";
+                document.getElementById('tab-cashfree').className = "flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gray-700 text-gray-300 transition";
+                document.getElementById('content-paypal').classList.remove('hidden');
+                document.getElementById('content-cashfree').classList.add('hidden');
+            } else {
+                document.getElementById('tab-cashfree').className = "flex-1 py-2.5 rounded-xl text-xs font-semibold bg-emerald-600 text-white transition";
+                document.getElementById('tab-paypal').className = "flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gray-700 text-gray-300 transition";
+                document.getElementById('content-cashfree').classList.remove('hidden');
+                document.getElementById('content-paypal').classList.add('hidden');
+            }
+        }
+
+        function submitCustomRequest(e) {
+            e.preventDefault();
+            const name = document.getElementById('req-name').value;
+            const email = document.getElementById('req-email').value;
+            const phone = document.getElementById('req-phone').value;
+            const from = document.getElementById('req-from').value;
+            const to = document.getElementById('req-to').value;
+            const datetime = document.getElementById('req-datetime').value;
+
+            const tbody = document.querySelector('#admin-bookings-table tbody');
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-gray-800/30";
+            tr.innerHTML = `
+                <td class="p-3">
+                    <div class="font-bold text-white">${name}</div>
+                    <div class="text-xs text-gold-400"><i class="fa-solid fa-envelope"></i> ${email}</div>
+                    <div class="text-xs text-emerald-400"><i class="fa-brands fa-whatsapp"></i> ${phone}</div>
+                </td>
+                <td class="p-3 font-mono text-gray-200">${from} → ${to}</td>
+                <td class="p-3 text-xs text-gray-300">${datetime.replace('T', ' ')}</td>
+                <td class="p-3"><span class="px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs">Pending Quote</span></td>
+                <td class="p-3 text-right"><button onclick="removeAdminRow(this)" class="px-2 py-1 bg-red-500/10 text-red-400 rounded-lg text-xs"><i class="fa-solid fa-trash"></i></button></td>
+            `;
+            tbody.prepend(tr);
+            showToast("Custom quote request submitted successfully!");
+            e.target.reset();
+        }
+
+        // Admin Portal PIN & Management Logic
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+        function verifyAdminPin() {
+            const pin = document.getElementById('admin-pin-input').value;
+            const currentPin = localStorage.getItem('aerolux_admin_pin') || '7777';
+            if(pin === currentPin) {
+                document.getElementById('admin-pin-screen').classList.add('hidden');
+                document.getElementById('admin-dashboard-screen').classList.remove('hidden');
+                showToast("Admin access granted for handle: admin.");
+            } else {
+                showToast("Incorrect security PIN. (Default: 7777)");
+            }
+        }
+        function lockAdmin() {
+            document.getElementById('admin-dashboard-screen').classList.add('hidden');
+            document.getElementById('admin-pin-screen').classList.remove('hidden');
+            document.getElementById('admin-pin-input').value = "";
+        }
+        function openChangePinModal() {
+            document.getElementById('changePinModal').classList.remove('hidden');
+        }
+        function closeChangePinModal() {
+            document.getElementById('changePinModal').classList.add('hidden');
+            document.getElementById('new-pin-input').value = "";
+        }
+        function saveNewPin() {
+            const newPin = document.getElementById('new-pin-input').value;
+            if(newPin.length === 4 && !isNaN(newPin)) {
+                localStorage.setItem('aerolux_admin_pin', newPin);
+                closeChangePinModal();
+                showToast("Admin PIN updated successfully!");
+            } else {
+                showToast("Please enter a valid 4-digit PIN.");
+            }
+        }
+        function removeAdminRow(btn) {
+            btn.closest('tr').remove();
+            showToast("Record archived.");
+        }
+    </script>
+</body>
+</html>
